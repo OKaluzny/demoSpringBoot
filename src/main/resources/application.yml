@@ -3,7 +3,7 @@ spring:
   # Database
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/employee
+    url: jdbc:postgresql://localhost:5432/CarModel
     username: postgres
     password: postgres
   # JPA properties
@@ -17,4 +17,4 @@ spring:
     generate-ddl: true
 # Server configuration
 server:
-  port: 8089 #set your port
+  port: 6666 #set your port
