@@ -19,6 +19,18 @@ public class Employee {
     @Column(name = "is_deleted")
     private Boolean isDeleted = Boolean.FALSE;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_fk")
+    private Address address;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public Long getId() {
         return id;
     }
