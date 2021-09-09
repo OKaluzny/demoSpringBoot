@@ -19,7 +19,7 @@ public class Employee {
     @Column(name = "is_deleted")
     private Boolean isDeleted = Boolean.FALSE;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_fk")
     private Address address;
 

@@ -1,68 +1,64 @@
 package com.example.demospringboot.web;
 
+import com.example.demospringboot.config.EmployeeConverter;
 import com.example.demospringboot.domain.Employee;
-import com.example.demospringboot.domain.EmployeeRepository;
+import com.example.demospringboot.dto.EmployeeDto;
+import com.example.demospringboot.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EmployeeRestController {
 
-    private final EmployeeRepository repository;
+    private final EmployeeService service;
+    private final EmployeeConverter converter;
 
-    public EmployeeRestController(EmployeeRepository repository) {
-        this.repository = repository;
+    public EmployeeRestController(EmployeeService service, EmployeeConverter converter) {
+        this.service = service;
+        this.converter = converter;
     }
 
-    //Операция сохранения юзера в базу данных
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee saveEmployee(@RequestBody Employee employee) {
+    public EmployeeDto saveEmployee(@RequestBody EmployeeDto requestForSave) {
 
-        return repository.save(employee);
+        Employee employee = converter.getMapperFacade().map(requestForSave, Employee.class);
+        EmployeeDto dto = converter.toDto(service.saveEmployee(employee));
+
+        return dto;
     }
 
     //Получение списка юзеров
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
-    public List<Employee> getAllUsers() {
+    public List<EmployeeDto> getAllUsers() {
 
-        return repository.findAll();
+        return null;
     }
 
     //Получения юзера по id
     @GetMapping("/users/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Employee getEmployeeById(@PathVariable long id) {
-
-        Employee employee = repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Employee not found with id = " + id));
-
-        if (employee.getIsDeleted()) {
-            throw new EntityNotFoundException("Employee was deleted with id = " + id);
-        }
-
-        return employee;
+    public EmployeeDto getEmployeeById(@PathVariable long id) {
+        Employee entity = service.getEmployeeById(id);
+        EmployeeDto dto = converter.toDto(entity);
+        return dto;
     }
 
     //Обновление юзера
     @PutMapping("/users/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Employee refreshEmployee(@PathVariable("id") long id, @RequestBody Employee employee) {
+    public EmployeeDto refreshEmployee(@PathVariable("id") long id, @RequestBody EmployeeDto requestForUpdate) {
 
-        return repository.findById(id)
-                .map(entity -> {
-                    entity.setName(employee.getName());
-                    entity.setEmail(employee.getEmail());
-                    entity.setCountry(employee.getCountry());
-                    return repository.save(entity);
-                })
-                .orElseThrow(() -> new EntityNotFoundException("Employee not found with id = " + id));
+        Employee entity = service.getEmployeeById(id);
+        converter.getMapperFacade().map(requestForUpdate, entity);
+        EmployeeDto dto = converter.toDto(service.updateEmployee(entity));
+
+        return dto;
     }
 
     //Удаление по id
@@ -70,18 +66,14 @@ public class EmployeeRestController {
     @PatchMapping("/users/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeEmployeeById(@PathVariable long id) {
-        repository.findById(id)
-                .map(employee -> {
-                    employee.setIsDeleted(Boolean.TRUE);
-                    return repository.save(employee);
-                })
-                .orElseThrow(() -> new EntityNotFoundException("Employee not found with id = " + id));
+
+        service.removeEmployeeById(id);
     }
 
     //Удаление всех юзеров
     @DeleteMapping("/users")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeAllUsers() {
-        repository.deleteAll();
+        service.removeAllUsers();
     }
 }

@@ -3,6 +3,7 @@ package com.example.demospringboot.domain;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "addresses")
 public class Address {
 
     @Id
@@ -17,6 +18,9 @@ public class Address {
 
     @OneToOne(mappedBy = "address")
     private Employee employee;
+
+
+
 
     public Employee getEmployee() {
         return employee;
