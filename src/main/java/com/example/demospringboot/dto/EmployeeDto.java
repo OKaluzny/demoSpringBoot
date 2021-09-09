@@ -1,11 +1,13 @@
 package com.example.demospringboot.dto;
 
 import com.example.demospringboot.domain.Address;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class EmployeeDto {
 
     private Long id;
 
+    @Schema(description = "Name of the employee.", example = "Vasil", required = true)
     private String name;
 
     private String email;

@@ -4,11 +4,17 @@ import com.example.demospringboot.config.EmployeeConverter;
 import com.example.demospringboot.domain.Employee;
 import com.example.demospringboot.dto.EmployeeDto;
 import com.example.demospringboot.service.EmployeeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+@Tag(name = "Employee", description = "Employee API")
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -24,6 +30,11 @@ public class EmployeeRestController {
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Add a new employee", description = "endpoint for creating an entity", tags = {"Employee"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Employee created"),
+            @ApiResponse(responseCode = "400", description = "Invalid input"),
+            @ApiResponse(responseCode = "409", description = "Employee already exists")})
     public EmployeeDto saveEmployee(@RequestBody EmployeeDto requestForSave) {
 
         Employee employee = converter.getMapperFacade().map(requestForSave, Employee.class);
