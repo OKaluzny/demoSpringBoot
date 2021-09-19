@@ -11,4 +11,7 @@ public interface CarModelRepository extends JpaRepository<CarModel, Long> {
     List<CarModel> findByPrice(long price);
     List<CarModel> findByCarAge(long carAge);
 
+
+
+
 }

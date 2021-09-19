@@ -1,9 +1,11 @@
 package com.example.demospringboot.domain;
 
+import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cars")
+@Getter @Setter
 public class CarModel {
 
     @Id
@@ -16,35 +18,25 @@ public class CarModel {
 
     private long price;
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
-    public String getModel() {
-        return model;
-    }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
+    private String color;
 
-    public long getCarAge() {
-        return carAge;
-    }
 
-    public void setCarAge(long carAge) {
-        this.carAge = carAge;
-    }
+    private Boolean originalColor  = Boolean.TRUE;
 
-    public long getPrice() {
-        return price;
-    }
 
-    public void setPrice(long price) {
-        this.price = price;
+
+    @Override
+    public String toString() {
+        return "CarModel{" +
+                "id=" + id +
+                ", model='" + model + '\'' +
+                ", carAge=" + carAge +
+                ", price=" + price +
+                ", color='" + color + '\'' +
+                ", originalColor=" + originalColor +
+                '}';
     }
 }

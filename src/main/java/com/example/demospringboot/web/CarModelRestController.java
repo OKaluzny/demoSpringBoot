@@ -73,20 +73,41 @@ public class CarModelRestController {
                             .orElseThrow(() -> new EntityNotFoundException("Entity with price = Not found"));
                 }
                 */
-    //Обновление авто
+    //Проверка оригинальный цвет у авто или нет
+    @PatchMapping("/cars/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public CarModel refreshCarColor(@PathVariable("id") long id, @RequestBody CarModel carModel) {
+
+        CarModel car = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Employee with id = Not found"));
+        car.setColor(carModel.getColor());
+        car.setOriginalColor(Boolean.FALSE);
+        return repository.save(car);
+    }
+
+/*    //Получение списка авто только в оригинальном цвете
+    @GetMapping("/cars/originalColor")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<CarModel> getAllCarWithOriginalColor() {
+        return ;
+    }*/
     @PutMapping("/cars/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CarModel refreshCarModel(@PathVariable("id") long id, @RequestBody CarModel carModel) {
 
+
         return repository.findById(id)
                 .map(entity -> {
+
                     entity.setModel(carModel.getModel());
                     entity.setCarAge(carModel.getCarAge());
                     entity.setPrice(carModel.getPrice());
                     return repository.save(entity);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Employee with id = Not found"));
+
     }
+
 
     //Удаление по id
     @DeleteMapping("/cars/{id}")
