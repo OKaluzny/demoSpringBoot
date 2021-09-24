@@ -47,7 +47,7 @@ public class CarModelRestController {
                 .orElseThrow(() -> new EntityNotFoundException("Entity with id = Not found"));
     }
     /*
-            //Получения авто по Model
+           TODO:Получения авто по Model
             @GetMapping("/cars/{model}")
             @ResponseStatus(HttpStatus.OK)
             public CarModel getCarByModel(@PathVariable String model) {
@@ -55,20 +55,18 @@ public class CarModelRestController {
 
             }
 
-               //Получения авто по CarAge
+               TODO:Получения авто по CarAge
                 @GetMapping("/cars/{carAge}")
                 @ResponseStatus(HttpStatus.OK)
                 public CarModel getCarByCarAge(@PathVariable long carAge) {
-
                     return repository.findByCarAge(carAge)
                             .orElseThrow(() -> new EntityNotFoundException("Entity with carAge = Not found"));
                 }
 
-                //Получения авто по Price
+               TODO:Получения авто по Price
                 @GetMapping("/cars/{price}")
                 @ResponseStatus(HttpStatus.OK)
                 public CarModel getCarByPrice(@PathVariable long price) {
-
                     return repository.findByPrice(price)
                             .orElseThrow(() -> new EntityNotFoundException("Entity with price = Not found"));
                 }
@@ -84,13 +82,14 @@ public class CarModelRestController {
         car.setOriginalColor(Boolean.FALSE);
         return repository.save(car);
     }
-
-/*    //Получение списка авто только в оригинальном цвете
+    //TODO: release method in future;
+     /* //Получение списка авто только в оригинальном цвете
     @GetMapping("/cars/originalColor")
     @ResponseStatus(HttpStatus.OK)
     public Collection<CarModel> getAllCarWithOriginalColor() {
         return ;
     }*/
+
     @PutMapping("/cars/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CarModel refreshCarModel(@PathVariable("id") long id, @RequestBody CarModel carModel) {
