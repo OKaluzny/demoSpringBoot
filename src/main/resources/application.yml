@@ -17,4 +17,4 @@ spring:
     generate-ddl: true
 # Server configuration
 server:
-  port: 6666 #set your port
+  port: 7777 #set your port
