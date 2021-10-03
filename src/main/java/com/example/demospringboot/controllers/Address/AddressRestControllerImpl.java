@@ -1,4 +1,4 @@
-package com.example.demospringboot.web;
+package com.example.demospringboot.controllers.Address;
 
 import com.example.demospringboot.domain.Address;
 import com.example.demospringboot.repository.AddressRepository;
@@ -11,11 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-public class AddressRestController {
+public class AddressRestControllerImpl implements AddressRestController{
 
     private final AddressRepository addressRepository;
 
-    public AddressRestController(AddressRepository addressRepository) {
+    public AddressRestControllerImpl(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
     }
 

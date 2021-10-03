@@ -1,4 +1,4 @@
-package com.example.demospringboot.web;
+package com.example.demospringboot.controllers.CarModel;
 
 import com.example.demospringboot.domain.CarModel;
 import com.example.demospringboot.repository.CarsRepository;
@@ -11,12 +11,12 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-public class    CarModelRestController {
+public class CarModelRestControllerImpl implements CarModelRestController{
 
 
     private final CarsRepository carsRepository;
 
-    public CarModelRestController(CarsRepository carsRepository) {
+    public CarModelRestControllerImpl(CarsRepository carsRepository) {
         this.carsRepository = carsRepository;
     }
 

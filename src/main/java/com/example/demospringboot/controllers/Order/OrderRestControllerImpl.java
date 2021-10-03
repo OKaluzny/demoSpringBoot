@@ -1,4 +1,4 @@
-package com.example.demospringboot.web;
+package com.example.demospringboot.controllers.Order;
 
 import com.example.demospringboot.domain.Order;
 import com.example.demospringboot.repository.OrderRepository;
@@ -11,10 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-public class OrderRestController {
+public class OrderRestControllerImpl implements OrderRestController{
     private final OrderRepository orderRepository;
 
-    public OrderRestController(OrderRepository orderRepository) {
+    public OrderRestControllerImpl(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 

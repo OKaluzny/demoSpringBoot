@@ -1,4 +1,4 @@
-package com.example.demospringboot.web;
+package com.example.demospringboot.controllers.Seller;
 
 import com.example.demospringboot.domain.Seller;
 import com.example.demospringboot.repository.SellerRepository;
@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-public class SellerRestController {
+public class SellerRestControllerImpl implements SellerRestController{
 
     private final SellerRepository sellerRepository;
 
-    public SellerRestController(SellerRepository sellerRepository) {
+    public SellerRestControllerImpl(SellerRepository sellerRepository) {
         this.sellerRepository = sellerRepository;
     }
 

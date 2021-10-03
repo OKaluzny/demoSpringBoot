@@ -1,4 +1,4 @@
-package com.example.demospringboot.web;
+package com.example.demospringboot.controllers.Customer;
 
 
 import com.example.demospringboot.domain.Customer;
@@ -13,11 +13,11 @@ import java.util.List;
 
     @RestController
     @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-    public class CustomerRestController {
+    public class CustomerRestControllerImpl implements CustomerRestController{
 
         private final CustomerRepository customerRepository;
 
-        public CustomerRestController(CustomerRepository customerRepository) {
+        public CustomerRestControllerImpl(CustomerRepository customerRepository) {
             this.customerRepository = customerRepository;
         }
 
