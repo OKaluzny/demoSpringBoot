@@ -26,4 +26,8 @@ public class Address {
             cascade = CascadeType.ALL)
     private Set<CarModel> cars;
 
+    @OneToMany(mappedBy = "customers", fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private Set<Customer> customers;
+
 }

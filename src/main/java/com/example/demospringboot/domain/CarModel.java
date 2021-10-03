@@ -30,6 +30,16 @@ public class CarModel {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Address address;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "seller_fk")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Seller seller;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "order_fk")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Order order;
+
     @Override
     public String toString() {
         return "CarModel{" +
